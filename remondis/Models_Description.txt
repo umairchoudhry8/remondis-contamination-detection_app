@@ -1,0 +1,3 @@
+Model 1 - YoloV4 with CSPDarkNet53 backbone and Mish activation trained on origianl dataset for 200 epochs.
+Model 2 - YoloV4_tiny with CSPDarknet backbone. Trained on origianla dataset for 200 epochs and pruned and trained again for 100 epochs.
+Model 3 - YoloV4_tiny with CSPDarknet backbone. Trained on REFINED dataset for 200 epochs and pruned and trained again for 100 epochs.
