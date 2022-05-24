@@ -79,6 +79,8 @@ import threading
 import netifaces
 import ssl
 
+pgie_classes_str = ["plastic_bag"]
+
 # Dictionnary to store the data
 dict_detection = dict()
 
@@ -230,6 +232,7 @@ def osd_sink_pad_buffer_probe(pad,info,u_data):
         # saving image if a contamination has been detected
         if obj_counter[PGIE_CLASS_ID_CONTAMINATION] > 0:
             n_frame   = pyds.get_nvds_buf_surface(hash(gst_buffer),frame_meta.batch_id)
+            n_frame = draw_bounding_boxes(n_frame, obj_meta, obj_meta.confidence)
             frame_image = np.array(n_frame,copy=True,order='C')            
             cv2.imwrite('out/images/' + DEVICE_NAME + "-" + datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + ".jpg", frame_image)
                    
@@ -279,6 +282,36 @@ def osd_sink_pad_buffer_probe(pad,info,u_data):
             break
 			
     return Gst.PadProbeReturn.OK	
+
+def draw_bounding_boxes(image, obj_meta, confidence):
+    confidence = '{0:.2f}'.format(confidence)
+    rect_params = obj_meta.rect_params
+    top = int(rect_params.top)
+    left = int(rect_params.left)
+    width = int(rect_params.width)
+    height = int(rect_params.height)
+    obj_name = pgie_classes_str[obj_meta.class_id]
+    # image = cv2.rectangle(image, (left, top), (left + width, top + height), (0, 0, 255, 0), 2, cv2.LINE_4)
+    color = (255, 0, 0, 0)
+    w_percents = int(width * 0.05) if width > 100 else int(width * 0.1)
+    h_percents = int(height * 0.05) if height > 100 else int(height * 0.1)
+    linetop_c1 = (left + w_percents, top)
+    linetop_c2 = (left + width - w_percents, top)
+    image = cv2.line(image, linetop_c1, linetop_c2, color, 2)
+    linebot_c1 = (left + w_percents, top + height)
+    linebot_c2 = (left + width - w_percents, top + height)
+    image = cv2.line(image, linebot_c1, linebot_c2, color, 2)
+    lineleft_c1 = (left, top + h_percents)
+    lineleft_c2 = (left, top + height - h_percents)
+    image = cv2.line(image, lineleft_c1, lineleft_c2, color, 2)
+    lineright_c1 = (left + width, top + h_percents)
+    lineright_c2 = (left + width, top + height - h_percents)
+    image = cv2.line(image, lineright_c1, lineright_c2, color, 2)
+    # Note that on some systems cv2.putText erroneously draws horizontal lines across the image
+    image = cv2.putText(image, obj_name + ',C=' + str(confidence), (left - 10, top - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5,
+                        (255, 0, 0, 0), 2)
+    return image
+
 
 def main(args):
     # Check input arguments
