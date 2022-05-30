@@ -69,6 +69,14 @@ sudo apt-get install gobject-introspection gir1.2-gst-rtsp-server-1.0
 - If the device needs to run 24/7, it can be a good idea to schedule a daily reboot via a `cron` job.
 - Compile to bytecode: `python3 -OO -m py_compile <python script>.py`
 
+## systemd commands
+- sudo systemctl enable /path/to/servicefile
+- sudo systemctl start nameofservicefile.service
+- sudo systemctl status nameofservicefile.service
+- sudo systemctl stop nameofservicefile.service
+- sudo systemctl disable nameofservicefile.service
+- echo $DISPLAY to set the correct display environment in the file. 
+
 ## Contact
 
 Johan Barthelemy - johan@uow.edu.au
