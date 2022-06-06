@@ -3,13 +3,13 @@
 ################################################################################
 # REMONDIS
 #
-# Automated license plate recognition and traffic count with DeepStream.
+# Automated waste contamination detection with DeepStream.
 #
-# Version: 04 May 2022
-# Author : Johan Barthelemy - johan@uow.edu.au
+# Version: 06 June 2022
+# Authors : Johan Barthelemy - johan@uow.edu.au and Umair Iqbal
 #
 # License: MIT
-# Copyright (c) 2022 Johan Barthelemy
+# Copyright (c) 2022 Johan Barthelemy and Umair Iqbal
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -205,7 +205,7 @@ def osd_sink_pad_buffer_probe(pad,info,u_data):
 
         first_obj = True
         now_ts = datetime.now()
-
+        plastic_bag_bbox = []
         while l_obj is not None:
             try:
                 # Casting l_obj.data to pyds.NvDsObjectMeta
@@ -215,7 +215,7 @@ def osd_sink_pad_buffer_probe(pad,info,u_data):
                                                                                                                                          
             obj_counter[obj_meta.class_id] += 1
             
-            # Current object is a vehicle
+            # Current object is a plastic_bag
             if (obj_meta.class_id == PGIE_CLASS_ID_CONTAMINATION):                
                                                                                            
                 if obj_meta.object_id not in dict_detection:
@@ -223,17 +223,25 @@ def osd_sink_pad_buffer_probe(pad,info,u_data):
                 else:
                     ts_in = dict_detection[obj_meta.object_id][0]
                     dict_detection[obj_meta.object_id] = (ts_in, now_ts)                                                        
-            
+            top = int(obj_meta.rect_params.top)
+            left = int(obj_meta.rect_params.left)
+            width = int(obj_meta.rect_params.width)
+            height = int(obj_meta.rect_params.height)
+            right = left + width
+            bottom = top + height
+            bbox=[top,left,right,bottom]
+            plastic_bag_bbox.append(bbox)
             try: 
                 l_obj=l_obj.next
             except StopIteration:
                 break
-
+            save_kitti_labels(plastic_bag_bbox, obj_meta)
         # saving image if a contamination has been detected
         if obj_counter[PGIE_CLASS_ID_CONTAMINATION] > 0:
             n_frame   = pyds.get_nvds_buf_surface(hash(gst_buffer),frame_meta.batch_id)
-            n_frame = draw_bounding_boxes(n_frame, obj_meta, obj_meta.confidence)
-            frame_image = np.array(n_frame,copy=True,order='C')            
+            #n_frame = draw_bounding_boxes(n_frame, obj_meta, obj_meta.confidence)
+            frame_image = np.array(n_frame,copy=True,order='C')
+            frame_image = cv2.cvtColor(frame_image, cv2.COLOR_RGB2BGR)            
             cv2.imwrite('out/images/' + DEVICE_NAME + "-" + datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + ".jpg", frame_image)
                    
         if DATA_ENABLE:
@@ -311,6 +319,13 @@ def draw_bounding_boxes(image, obj_meta, confidence):
     image = cv2.putText(image, obj_name + ',C=' + str(confidence), (left - 10, top - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5,
                         (255, 0, 0, 0), 2)
     return image
+
+def save_kitti_labels(plastic_bag_bbox, obj_meta):
+    with open ("out/images/" + DEVICE_NAME + "-" + datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + ".txt", 'w') as label_file:
+       for b in plastic_bag_bbox:
+          lbl = obj_meta.obj_label
+          out_str = [lbl + ' ' + ' '.join(['0']*3) + ' ' + str(b[0]) + ' ' + str(b[1]) + ' ' + str(b[2]) + ' ' + str(b[3]) + ' ' + ' '.join(['0']*7) + '\n']
+          label_file.write(out_str[0])
 
 
 def main(args):
@@ -656,7 +671,6 @@ def main(args):
     srcpad.link(sinkpad)
 
     streammux.link(pgie)   
-    #pgie.link(nvvidconv)
     pgie.link(tracker)
     tracker.link(nvvidconv)    
     nvvidconv.link(nvosd)
