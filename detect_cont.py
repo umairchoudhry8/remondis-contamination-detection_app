@@ -241,8 +241,9 @@ def osd_sink_pad_buffer_probe(pad,info,u_data):
             n_frame   = pyds.get_nvds_buf_surface(hash(gst_buffer),frame_meta.batch_id)
             #n_frame = draw_bounding_boxes(n_frame, obj_meta, obj_meta.confidence)
             frame_image = np.array(n_frame,copy=True,order='C')
-            frame_image = cv2.cvtColor(frame_image, cv2.COLOR_RGB2BGR)            
-            cv2.imwrite('out/images/' + DEVICE_NAME + "-" + datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + ".jpg", frame_image)
+            frame_image = cv2.cvtColor(frame_image, cv2.COLOR_RGB2BGR)          
+            #cv2.imwrite('out/images/' + DEVICE_NAME + "-" + datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + ".jpg", frame_image)
+            cv2.imwrite('/media/adx/USB_Drive/images/' + DEVICE_NAME + "-" + datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + ".jpg", frame_image)
                    
         if DATA_ENABLE:
             if frame_number % DATA_RATE == 0:
@@ -321,7 +322,7 @@ def draw_bounding_boxes(image, obj_meta, confidence):
     return image
 
 def save_kitti_labels(plastic_bag_bbox, obj_meta):
-    with open ("out/images/" + DEVICE_NAME + "-" + datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + ".txt", 'w') as label_file:
+    with open ("/media/adx/USB_Drive/images/" + DEVICE_NAME + "-" + datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + ".txt", 'w') as label_file:
        for b in plastic_bag_bbox:
           lbl = obj_meta.obj_label
           out_str = [lbl + ' ' + ' '.join(['0']*3) + ' ' + str(b[0]) + ' ' + str(b[1]) + ' ' + str(b[2]) + ' ' + str(b[3]) + ' ' + ' '.join(['0']*7) + '\n']
