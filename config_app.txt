@@ -1,0 +1,13 @@
+[device]
+name=remondis_1
+
+[source]
+#mode 0=webcam, 1=uri
+#uri=location for mode 1, or device for mode 0 
+mode=1
+#uri=/dev/video0
+uri=file:///home/adx/Downloads/Remondis-Contamination-Detection_app/waste_video_5.mp4
+
+[output]
+enable-display=1
+

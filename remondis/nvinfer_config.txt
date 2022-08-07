@@ -1,0 +1,7 @@
+net-scale-factor=1.0
+offsets=103.939;116.779;123.68
+infer-dims=3;384;1248
+tlt-model-key=nvidia_tlt
+network-type=0
+num-detected-classes=1
+model-color-format=1

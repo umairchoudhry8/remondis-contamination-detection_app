@@ -1,0 +1,17 @@
+[Unit]
+Description=VIVA REMONDIS
+After=network-online.target
+#After=multi-user.target media-adx-USB_Drive.mount
+#Requires=media-adx-USB_Drive.mount
+
+[Service]
+User=adx
+#Environment="DISPLAY=:1"
+WorkingDirectory=/home/adx/Downloads/Remondis-Contamination-Detection_app 
+ExecStartPre=/bin/sleep 60
+ExecStart=/usr/bin/python3 /home/adx/Downloads/Remondis-Contamination-Detection_app/detect_cont.py /home/adx/Downloads/Remondis-Contamination-Detection_app/config_app.txt
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
