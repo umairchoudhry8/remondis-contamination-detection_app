@@ -79,4 +79,5 @@ sudo apt-get install gobject-introspection gir1.2-gst-rtsp-server-1.0
 
 ## Contact
 
+Umair Iqbal - umair@uow.edu.au
 Johan Barthelemy - johan@uow.edu.au
