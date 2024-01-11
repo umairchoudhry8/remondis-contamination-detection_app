@@ -68,6 +68,7 @@ sudo apt-get install gobject-introspection gir1.2-gst-rtsp-server-1.0
 - Enabling automatic security updates: https://libre-software.net/ubuntu-automatic-updates/
 - If the device needs to run 24/7, it can be a good idea to schedule a daily reboot via a `cron` job.
 - Compile to bytecode: `python3 -OO -m py_compile <python script>.py`
+- For saving images to external drive -- check name using `lsblk`
 
 ## systemd commands
 - sudo systemctl enable /path/to/servicefile
