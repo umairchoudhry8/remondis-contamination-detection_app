@@ -69,6 +69,8 @@ sudo apt-get install gobject-introspection gir1.2-gst-rtsp-server-1.0
 - If the device needs to run 24/7, it can be a good idea to schedule a daily reboot via a `cron` job.
 - Compile to bytecode: `python3 -OO -m py_compile <python script>.py`
 - For saving images to external drive -- check name using `lsblk`
+- install nano using `sudo apt-get install nano`
+- `sudo nano /etc/fstab` for the auto mount of usb on the startup
 
 ## systemd commands
 - sudo systemctl enable /path/to/servicefile
