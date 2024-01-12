@@ -86,7 +86,8 @@ sudo apt-get install gobject-introspection gir1.2-gst-rtsp-server-1.0
 - Enter the information in the following format in a new line and `ctl x` for saving. <br>
   `UUID=your_usb_uuid /mount/point filesystem_type options 0 0`<br>
   `UUID=[Device UUID] /media/username/USB vfat defaults 0 0`
-- Check if it mounted correctly using `sudo mount -a`
+- One can use `LABEL` as well in place of `UUID`.
+- Check if it mounted correctly using `sudo mount -a`.
 
 ## Contact
 
