@@ -83,7 +83,8 @@ sudo apt-get install gobject-introspection gir1.2-gst-rtsp-server-1.0
 ## AutoMount USB using `fstab`
 - first check the USB device label and UUID by command `lsblk -f`
 - Use `sudo nano /etc/fstab` command to open fstab
-- Enter the information in the following format in a new line and `ctl x` for saving
+- Enter the information in the following format in a new line and `ctl x` for saving. \n
+  `UUID=your_usb_uuid /mount/point filesystem_type options 0 0` \n
   `UUID=[Device UUID] /media/username/USB vfat defaults 0 0`
 - Check if it mounted correctly using `sudo mount -a`
 
