@@ -78,7 +78,14 @@ sudo apt-get install gobject-introspection gir1.2-gst-rtsp-server-1.0
 - sudo systemctl status nameofservicefile.service
 - sudo systemctl stop nameofservicefile.service
 - sudo systemctl disable nameofservicefile.service
-- echo $DISPLAY to set the correct display environment in the file. 
+- echo $DISPLAY to set the correct display environment in the file.
+
+## AutoMount USB using `fstab`
+- first check the USB device label and UUID by command `lsblk -f`
+- Use `sudo nano /etc/fstab` command to open fstab
+- Enter the information in the following format in a new line and `ctl x` for saving
+  `UUID=[Device UUID] /media/username/USB vfat defaults 0 0`
+- Check if it mounted correctly using `sudo mount -a`
 
 ## Contact
 
