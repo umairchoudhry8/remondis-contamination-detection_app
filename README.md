@@ -99,6 +99,7 @@ sudo apt-get install gobject-introspection gir1.2-gst-rtsp-server-1.0
 4. fourth * represents any month (1-12).
 5. fifth * represents any day of the week (0-7).
 - `* * * * * /home/user/Desktop/command.sh` An example cron job to execute the `command.sh` shell script located on user Desktop every minute.
+- https://ostechnix.com/a-beginners-guide-to-cron-jobs/ A very useful resource to schedule cron jobs.
 
 ## Contact
 
