@@ -89,6 +89,16 @@ sudo apt-get install gobject-introspection gir1.2-gst-rtsp-server-1.0
 - One can use `LABEL` as well in place of `UUID`.
 - Check if it mounted correctly using `sudo mount -a`.
 
+## Cron Job Commands
+- `crontab -l` to display the contents of the crontab file of the currently logged user.
+- `crontab -e` to edit the current users cron jobs.
+- `* * * * * <command to execute>` refers the general format for defining cron job
+  first * represents any minute (0-59).
+  second * represents any hour (0-23).
+  third * represents any day of month (1-31).
+  fourth * represents any month (1-12).
+  fifth * represents any day of the week (0-7).
+
 ## Contact
 
 Umair Iqbal - umair@uow.edu.au
