@@ -85,7 +85,8 @@ sudo apt-get install gobject-introspection gir1.2-gst-rtsp-server-1.0
 - Use `sudo nano /etc/fstab` command to open fstab
 - Enter the information in the following format in a new line and `ctl x` for saving. <br>
   `UUID=your_usb_uuid /mount/point filesystem_type options 0 0`<br>
-  `UUID=[Device UUID] /media/username/USB vfat defaults,rw,user 0 0`
+  `UUID=[Device UUID] /media/username/USB vfat defaults,nofail,umask=0000 0 0`<br>
+  `umask=0000` enables all the permissions on the mounting
 - One can use `LABEL` as well in place of `UUID`.
 - Check if it mounted correctly using `sudo mount -a`.
 
