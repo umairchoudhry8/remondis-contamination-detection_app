@@ -102,6 +102,16 @@ sudo apt-get install gobject-introspection gir1.2-gst-rtsp-server-1.0
 - `* * * * * /home/user/Desktop/command.sh` An example cron job to execute the `command.sh` shell script located on user Desktop every minute.
 - https://ostechnix.com/a-beginners-guide-to-cron-jobs/ A very useful resource to schedule cron jobs.
 
+## IP Camera Connection
+- Connect the camera to Jetson using CAT5 cable and power. One can use POE module as well.
+- For HIKVISION IP Camera, since the IP of camera is `194.168.1.64`, connect the network on the same sub-network `192.168.1.2` and `255.255.255.0` gateway.
+- Use `uri=rtsp://admin:****PW@192.168.1.94:554/Streaming/Channels/101` to access the stream.
+
+## Hardware Stats
+- `pip3 install -U jetson-stats` to install the jetson stats package.
+- Download `jtop_logger.py` from examples of the `jetson-stats` Git repo.
+- Use `python jtop_logger.py` to logg the hardware performance.
+
 ## Contact
 
 Umair Iqbal - umair@uow.edu.au
