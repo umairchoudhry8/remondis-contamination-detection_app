@@ -113,6 +113,7 @@ sudo apt-get install gobject-introspection gir1.2-gst-rtsp-server-1.0
 - `pip3 install -U jetson-stats` to install the jetson stats package.
 - Download `jtop_logger.py` from examples of the `jetson-stats` Git repo.
 - Use `python jtop_logger.py` to logg the hardware performance.
+- At Jetson ORIN AGX, `tegrastats` can also be used.
 
 ## Contact
 
