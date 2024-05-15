@@ -71,6 +71,8 @@ sudo apt-get install gobject-introspection gir1.2-gst-rtsp-server-1.0
 - For saving images to external drive -- check name using `lsblk`
 - install nano using `sudo apt-get install nano`
 - `sudo nano /etc/fstab` for the auto mount of usb on the startup
+- `interval` is an important parameter to adjust for improving FPS.
+- `fp32`, `fp16` and `int8` precisions are also important in context to improving FPS. Going with lower precison would improve FPS, however, need to closely monitor the degradation in performance. 
 
 ## systemd commands
 - sudo systemctl enable /path/to/servicefile
