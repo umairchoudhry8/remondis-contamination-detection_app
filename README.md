@@ -66,7 +66,8 @@ sudo apt-get install gobject-introspection gir1.2-gst-rtsp-server-1.0
 - A sample `systemd` service file is provided in the `service` directory to run the application continuously.
 - Starting/stopping a service at regular time: https://unix.stackexchange.com/questions/265704/start-stop-a-systemd-service-at-specific-times
 - Enabling automatic security updates: https://libre-software.net/ubuntu-automatic-updates/
-- If the device needs to run 24/7, it can be a good idea to schedule a daily reboot via a `cron` job.
+- If the device needs to run 24/7, it can be a good idea to schedule a daily reboot via a `cron` job.<br>
+`0 0 * * * /sbin/shutdown -r now`
 - Compile to bytecode: `python3 -OO -m py_compile <python script>.py`
 - For saving images to external drive -- check name using `lsblk`
 - install nano using `sudo apt-get install nano`
