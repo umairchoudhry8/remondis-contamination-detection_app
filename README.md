@@ -34,7 +34,8 @@ engine files you can modify the paths in the configuration file (ie use absolute
 
 ## RTSP feed
 
-If enabled, the processed video stream will be available at `localhost:8554/live`.
+If enabled, the processed video stream will be available at `localhost:8554/live`.<br>
+`ffplay rtsp://localhost:8554/live`
 
 ## Installation steps
 
